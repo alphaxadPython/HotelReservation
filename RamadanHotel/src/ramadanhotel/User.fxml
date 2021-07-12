@@ -74,7 +74,7 @@
                                     <Font name="Arial Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="286.0" layoutY="86.0" mnemonicParsing="false" style="-fx-background-color: #0a3d62;" text="Book Rooms" textFill="WHITE">
+                              <Button layoutX="286.0" layoutY="86.0" mnemonicParsing="false" onAction="#goParadise" style="-fx-background-color: #0a3d62;" text="Book Rooms" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -133,7 +133,7 @@
                                     <Font name="Arial Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="286.0" layoutY="86.0" mnemonicParsing="false" style="-fx-background-color: #0a3d62;" text="Book Rooms" textFill="WHITE">
+                              <Button layoutX="286.0" layoutY="86.0" mnemonicParsing="false" onAction="#goJaromax" style="-fx-background-color: #0a3d62;" text="Book Rooms" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -192,7 +192,7 @@
                                     <Font name="Arial Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="286.0" layoutY="86.0" mnemonicParsing="false" style="-fx-background-color: #0a3d62;" text="Book Rooms" textFill="WHITE">
+                              <Button layoutX="286.0" layoutY="86.0" mnemonicParsing="false" onAction="#goHayat" style="-fx-background-color: #0a3d62;" text="Book Rooms" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -257,16 +257,16 @@
                               <Image url="@images/bg.jpg" />
                            </image>
                         </ImageView>
-                        <TableView layoutX="432.0" layoutY="67.0" prefHeight="380.0" prefWidth="411.0">
+                        <TableView fx:id="ParadiseTable" layoutX="432.0" layoutY="67.0" prefHeight="380.0" prefWidth="411.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="roomNo" />
-                            <TableColumn prefWidth="100.0" text="Room Name" />
-                              <TableColumn prefWidth="88.0" text="cartegory" />
-                              <TableColumn prefWidth="52.0" text="beds" />
-                              <TableColumn prefWidth="95.0" text="cost" />
+                            <TableColumn fx:id="roomColParadise" prefWidth="75.0" text="roomNo" />
+                            <TableColumn fx:id="roomNameColParadise" prefWidth="100.0" text="Room Name" />
+                              <TableColumn fx:id="cartegoryColParadise" prefWidth="88.0" text="cartegory" />
+                              <TableColumn fx:id="bedsColParadise" prefWidth="52.0" text="beds" />
+                              <TableColumn fx:id="costParadiseCol" prefWidth="95.0" text="cost" />
                           </columns>
                         </TableView>
-                        <Button layoutX="715.0" layoutY="475.0" mnemonicParsing="false" style="-fx-background-color: #0a3d62;" text="Book This Room" textFill="WHITE">
+                        <Button layoutX="715.0" layoutY="475.0" mnemonicParsing="false" onAction="#goBookParadise" style="-fx-background-color: #0a3d62;" text="Book This Room" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -289,16 +289,16 @@
                               <Image url="@images/jaro.jpg" />
                            </image>
                         </ImageView>
-                        <TableView layoutX="432.0" layoutY="67.0" prefHeight="380.0" prefWidth="411.0">
+                        <TableView fx:id="JaromaxTable" layoutX="432.0" layoutY="67.0" prefHeight="380.0" prefWidth="411.0">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="roomNo" />
-                              <TableColumn prefWidth="100.0" text="Room Name" />
-                              <TableColumn prefWidth="88.0" text="cartegory" />
-                              <TableColumn prefWidth="52.0" text="beds" />
-                              <TableColumn prefWidth="95.0" text="cost" />
+                              <TableColumn fx:id="roomcolJaro" prefWidth="75.0" text="roomNo" />
+                              <TableColumn fx:id="roomNameJaro" prefWidth="100.0" text="Room Name" />
+                              <TableColumn fx:id="cartegoryJaroCol" prefWidth="88.0" text="cartegory" />
+                              <TableColumn fx:id="bedsColJaro" prefWidth="52.0" text="beds" />
+                              <TableColumn fx:id="costColJaro" prefWidth="95.0" text="cost" />
                            </columns>
                         </TableView>
-                        <Button layoutX="715.0" layoutY="475.0" mnemonicParsing="false" style="-fx-background-color: #0a3d62;" text="Book This Room" textFill="WHITE">
+                        <Button layoutX="715.0" layoutY="475.0" mnemonicParsing="false" onAction="#goBookJaro" style="-fx-background-color: #0a3d62;" text="Book This Room" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -321,9 +321,9 @@
                               <Image url="@images/hyat.jpg" />
                            </image>
                         </ImageView>
-                        <TableView layoutX="432.0" layoutY="67.0" prefHeight="414.0" prefWidth="411.0">
+                        <TableView fx:id="hayatTable" layoutX="432.0" layoutY="67.0" prefHeight="414.0" prefWidth="411.0">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="roomNo" />
+                              <TableColumn fx:id="roomNoHayatCol" prefWidth="75.0" text="roomNo" />
                               <TableColumn prefWidth="100.0" text="Room Name" />
                               <TableColumn prefWidth="88.0" text="cartegory" />
                               <TableColumn prefWidth="52.0" text="beds" />

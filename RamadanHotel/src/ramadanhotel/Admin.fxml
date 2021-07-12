@@ -129,30 +129,20 @@
                               <Font name="Arial Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Button layoutX="731.0" layoutY="503.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="105.0" style="-fx-background-color: #0a3d62;" text="update" textFill="WHITE">
-                           <font>
-                              <Font name="Arial" size="15.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="601.0" layoutY="503.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="105.0" style="-fx-background-color: #e74c3c;" text="Delete" textFill="WHITE">
-                           <font>
-                              <Font name="Arial" size="15.0" />
-                           </font>
-                        </Button>
                         <ImageView fitHeight="427.0" fitWidth="283.0" layoutX="18.0" layoutY="64.0" pickOnBounds="true">
                            <image>
                               <Image url="@images/bg.jpg" />
                            </image>
                         </ImageView>
-                        <TableView layoutX="314.0" layoutY="65.0" prefHeight="427.0" prefWidth="528.0">
+                        <TableView fx:id="bokingsTable" layoutX="314.0" layoutY="65.0" prefHeight="427.0" prefWidth="528.0">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="username" />
-                              <TableColumn prefWidth="75.0" text="Phone" />
-                              <TableColumn prefWidth="75.0" text="Hotel" />
-                              <TableColumn prefWidth="75.0" text="RoomNo" />
-                              <TableColumn prefWidth="75.0" text="DateIn" />
-                              <TableColumn prefWidth="75.0" text="DateOut" />
-                              <TableColumn prefWidth="75.0" text="receipt" />
+                              <TableColumn fx:id="usernameBookingCol" prefWidth="75.0" text="username" />
+                              <TableColumn fx:id="bookingPhone" prefWidth="75.0" text="Phone" />
+                              <TableColumn fx:id="hotelBookingCol" prefWidth="75.0" text="Hotel" />
+                              <TableColumn fx:id="roomNoBookingCol" prefWidth="75.0" text="RoomNo" />
+                              <TableColumn fx:id="DateInBookingCol" prefWidth="75.0" text="DateIn" />
+                              <TableColumn fx:id="DateOutCol" prefWidth="75.0" text="DateOut" />
+                              <TableColumn fx:id="receiptCol" prefWidth="75.0" text="receipt" />
                            </columns>
                         </TableView>
                      </children>
@@ -170,7 +160,7 @@
                         </Label>
                         <Pane layoutX="27.0" layoutY="64.0" prefHeight="434.0" prefWidth="330.0" style="-fx-background-color: white; -fx-border-style: dashed;">
                            <children>
-                              <TextField layoutX="18.0" layoutY="56.0" prefHeight="33.0" prefWidth="300.0" promptText="Username" />
+                              <TextField fx:id="username" layoutX="18.0" layoutY="56.0" prefHeight="33.0" prefWidth="300.0" promptText="Username" />
                               <Label layoutX="18.0" layoutY="33.0" text="Username:" textFill="#0a3d62">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -181,8 +171,8 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox layoutX="18.0" layoutY="132.0" prefHeight="36.0" prefWidth="302.0" promptText="Choose Hotel.." />
-                              <Button layoutX="20.0" layoutY="344.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" style="-fx-background-color: #0a3d62;" text="Register reception" textFill="WHITE">
+                              <ComboBox fx:id="hotelName" layoutX="18.0" layoutY="132.0" prefHeight="36.0" prefWidth="302.0" promptText="Choose Hotel.." />
+                              <Button layoutX="20.0" layoutY="344.0" mnemonicParsing="false" onAction="#registerReception" prefHeight="31.0" prefWidth="296.0" style="-fx-background-color: #0a3d62;" text="Register reception" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
@@ -192,8 +182,8 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <PasswordField layoutX="20.0" layoutY="217.0" prefHeight="34.0" prefWidth="298.0" promptText="password" />
-                              <TextField layoutX="19.0" layoutY="283.0" prefHeight="33.0" prefWidth="300.0" promptText="Phone" />
+                              <PasswordField fx:id="password" layoutX="20.0" layoutY="217.0" prefHeight="34.0" prefWidth="298.0" promptText="password" />
+                              <TextField fx:id="phone" layoutX="19.0" layoutY="283.0" prefHeight="33.0" prefWidth="300.0" promptText="Phone" />
                               <Label layoutX="19.0" layoutY="260.0" text="Phone:" textFill="#0a3d62">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -201,20 +191,20 @@
                               </Label>
                            </children>
                         </Pane>
-                        <TableView layoutX="382.0" layoutY="64.0" prefHeight="427.0" prefWidth="462.0">
+                        <TableView fx:id="receptionTable" layoutX="382.0" layoutY="64.0" prefHeight="427.0" prefWidth="462.0">
                            <columns>
-                              <TableColumn prefWidth="148.0" text="Username" />
-                              <TableColumn prefWidth="105.0" text="Hotel" />
-                              <TableColumn prefWidth="103.0" text="Password" />
-                              <TableColumn prefWidth="103.0" text="Phone" />
+                              <TableColumn fx:id="usernameColReception" prefWidth="148.0" text="Username" />
+                              <TableColumn fx:id="hotelColreception" prefWidth="105.0" text="Hotel" />
+                              <TableColumn fx:id="passwordColReception" prefWidth="103.0" text="Password" />
+                              <TableColumn fx:id="phoneCollRception" prefWidth="103.0" text="Phone" />
                            </columns>
                         </TableView>
-                        <Button layoutX="731.0" layoutY="498.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="105.0" style="-fx-background-color: #0a3d62;" text="update" textFill="WHITE">
+                        <Button layoutX="731.0" layoutY="498.0" mnemonicParsing="false" onAction="#updateReceprtion" prefHeight="31.0" prefWidth="105.0" style="-fx-background-color: #0a3d62;" text="update" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="601.0" layoutY="498.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="105.0" style="-fx-background-color: #e74c3c;" text="Delete" textFill="WHITE">
+                        <Button layoutX="601.0" layoutY="498.0" mnemonicParsing="false" onAction="#deleteReception" prefHeight="31.0" prefWidth="105.0" style="-fx-background-color: #e74c3c;" text="Delete" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>

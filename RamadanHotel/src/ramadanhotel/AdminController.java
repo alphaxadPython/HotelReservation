@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -48,6 +49,40 @@ public class AdminController implements Initializable {
     private TableColumn<Rooms, String> Cartegorycol;
     @FXML
     private TableColumn<Rooms, String> PriceCol;
+    @FXML
+    private TableView<?> bokingsTable;
+    @FXML
+    private TableColumn<?, ?> usernameBookingCol;
+    @FXML
+    private TableColumn<?, ?> bookingPhone;
+    @FXML
+    private TableColumn<?, ?> hotelBookingCol;
+    @FXML
+    private TableColumn<?, ?> roomNoBookingCol;
+    @FXML
+    private TableColumn<?, ?> DateInBookingCol;
+    @FXML
+    private TableColumn<?, ?> DateOutCol;
+    @FXML
+    private TableColumn<?, ?> receiptCol;
+    @FXML
+    private TextField username;
+    @FXML
+    private ComboBox<?> hotelName;
+    @FXML
+    private PasswordField password;
+    @FXML
+    private TextField phone;
+    @FXML
+    private TableView<?> receptionTable;
+    @FXML
+    private TableColumn<?, ?> usernameColReception;
+    @FXML
+    private TableColumn<?, ?> hotelColreception;
+    @FXML
+    private TableColumn<?, ?> passwordColReception;
+    @FXML
+    private TableColumn<?, ?> phoneCollRception;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -242,6 +277,18 @@ public class AdminController implements Initializable {
             System.out.println("Cannot connect the database!" + e.getMessage());
         }
         System.out.println("Deleting the Event");
+    }
+
+    @FXML
+    private void registerReception(ActionEvent event) {
+    }
+
+    @FXML
+    private void updateReceprtion(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteReception(ActionEvent event) {
     }
 
 }
