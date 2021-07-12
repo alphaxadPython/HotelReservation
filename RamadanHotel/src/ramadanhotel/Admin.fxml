@@ -96,7 +96,7 @@
                               </Button>
                            </children>
                         </Pane>
-                        <TableView fx:id="roomtable" layoutX="382.0" layoutY="64.0" prefHeight="427.0" prefWidth="462.0">
+                        <TableView fx:id="roomtable" layoutX="382.0" layoutY="64.0" onMouseClicked="#selectData" prefHeight="427.0" prefWidth="462.0">
                           <columns>
                             <TableColumn fx:id="hotelCol" prefWidth="75.0" text="Hotel name" />
                             <TableColumn fx:id="roomNoCol" prefWidth="75.0" text="roomNo" />

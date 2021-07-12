@@ -2,6 +2,7 @@ package ramadanhotel;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class AdminController implements Initializable {
 
@@ -65,8 +67,7 @@ public class AdminController implements Initializable {
                 "Standard Twin Room"
         );
         cartegoryCombo.setItems(rooms);
-        
-        
+
         try {
             roomsTable();
         } catch (Exception e) {
@@ -106,20 +107,13 @@ public class AdminController implements Initializable {
                 Beds.setText("");
                 Price.setText("");
                 cartegoryCombo.setValue(null);
+                roomsTable();
 
             }
         } catch (Exception e) {
         }
     }
 
-    @FXML
-    private void UpdateRoom(ActionEvent event) {
-    }
-
-    @FXML
-    private void deleteRoom(ActionEvent event) {
-    }
-    
     //   fetch rooms data to admin
     public ObservableList<Rooms> getRoomList() throws SQLException {
         ObservableList<Rooms> roomList = FXCollections.observableArrayList();
@@ -155,4 +149,99 @@ public class AdminController implements Initializable {
 
         roomtable.setItems(list);
     }
+
+    public String Name;
+//    onclick pull data to text boxes
+
+    @FXML
+    private void selectData(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            roomName.setText(roomtable.getSelectionModel().getSelectedItem().name);
+            roomNo.setText(roomtable.getSelectionModel().getSelectedItem().number);
+            Price.setText(roomtable.getSelectionModel().getSelectedItem().getPrice());
+            HotelCombo.setValue(roomtable.getSelectionModel().getSelectedItem().hotel);
+            cartegoryCombo.setValue(roomtable.getSelectionModel().getSelectedItem().getCartegory());
+            Beds.setText(roomtable.getSelectionModel().getSelectedItem().getBeds());
+            //            setting the name to capture updates and delete
+            Name = roomtable.getSelectionModel().getSelectedItem().name;
+
+        }
+    }
+
+//    update room here
+    @FXML
+    private void UpdateRoom(ActionEvent event) {
+        try (Connection conn = DBconnection.getConnection()) {
+
+            // updating the rooms details
+            String query = "UPDATE rooms SET roomName=?, roomNo=?, beds=?, hoteName=?, cost=?, cartegory=? WHERE roomName=?";
+
+            // Create the mysql insert prepared statement
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1, roomName.getText());
+            preparedStmt.setString(2, roomNo.getText());
+            preparedStmt.setString(3, Beds.getText());
+            preparedStmt.setString(4, HotelCombo.getValue());
+            preparedStmt.setString(5, Price.getText());
+            preparedStmt.setString(6, cartegoryCombo.getValue());
+            preparedStmt.setString(7, Name);
+
+            // Execute the preparedstatement
+            preparedStmt.execute();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Updated Successfully!!!!");
+            alert.setTitle("Updates");
+            alert.setHeaderText(null);
+            alert.show();
+
+            roomName.setText("");
+            roomNo.setText("");
+            HotelCombo.setValue(null);
+            Beds.setText("");
+            Price.setText("");
+            cartegoryCombo.setValue(null);
+            roomsTable();
+
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Cannot connect the database!" + e.getMessage());
+        }
+        System.out.println("updated room");
+    }
+
+//    deleting room here
+    @FXML
+    private void deleteRoom(ActionEvent event) {
+        try (Connection conn = DBconnection.getConnection()) {
+
+            // delete query
+            String query = "DELETE FROM rooms WHERE roomName=?";
+            // deleting the rooms
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1, Name);
+
+            // Execute the preparedstatement
+            preparedStmt.execute();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Deleted Successfully!!");
+            alert.setTitle("Deleted");
+            alert.setHeaderText(null);
+            alert.show();
+
+            roomName.setText("");
+            roomNo.setText("");
+            HotelCombo.setValue(null);
+            Beds.setText("");
+            Price.setText("");
+            cartegoryCombo.setValue(null);
+            roomsTable();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Cannot connect the database!" + e.getMessage());
+        }
+        System.out.println("Deleting the Event");
+    }
+
 }
