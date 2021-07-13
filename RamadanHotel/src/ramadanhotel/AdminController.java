@@ -68,21 +68,21 @@ public class AdminController implements Initializable {
     @FXML
     private TextField username;
     @FXML
-    private ComboBox<?> hotelName;
+    private ComboBox<String> hotelName;
     @FXML
     private PasswordField password;
     @FXML
     private TextField phone;
     @FXML
-    private TableView<?> receptionTable;
+    private TableView<Reception> receptionTable;
     @FXML
-    private TableColumn<?, ?> usernameColReception;
+    private TableColumn<Reception, String> usernameColReception;
     @FXML
-    private TableColumn<?, ?> hotelColreception;
+    private TableColumn<Reception, String> hotelColreception;
     @FXML
-    private TableColumn<?, ?> passwordColReception;
+    private TableColumn<Reception, String> passwordColReception;
     @FXML
-    private TableColumn<?, ?> phoneCollRception;
+    private TableColumn<Reception, String> phoneCollRception;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,9 +93,11 @@ public class AdminController implements Initializable {
                 "Jaromax Hotel"
         );
         HotelCombo.setItems(hotel);
+        hotelName.setItems(hotel);
 
-//        combo box for rooms
-        ObservableList<String> rooms = FXCollections.observableArrayList(
+        //        combo box for rooms
+                ObservableList
+        <String > rooms = FXCollections.observableArrayList(
                 "Standard Double Room",
                 "Delux Double Room",
                 "Executive Room",
@@ -105,6 +107,7 @@ public class AdminController implements Initializable {
 
         try {
             roomsTable();
+            receptionTable();
         } catch (Exception e) {
         }
     }
@@ -170,7 +173,6 @@ public class AdminController implements Initializable {
 
         return roomList;
     }
-//    assign events in table
 
 //   assign data to rooms table
     public void roomsTable() throws SQLException {
@@ -279,8 +281,75 @@ public class AdminController implements Initializable {
         System.out.println("Deleting the Event");
     }
 
+//    register reception
     @FXML
     private void registerReception(ActionEvent event) {
+        try {
+            if (username.getText().isEmpty() || hotelName.getValue().isEmpty() || password.getText().isEmpty() || phone.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Please Fill All fields!!");
+                alert.setTitle("Empty Fields");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+            } else {
+
+                String user = username.getText();
+                String hotel = hotelName.getValue();
+                String pwd = password.getText();
+                String phon = phone.getText();
+
+                Reception newRoom = new Reception(user, phon, pwd, hotel);
+                newRoom.registerReception();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Reception registered successFully!!");
+                alert.setTitle("Registered Reception");
+                alert.setHeaderText(null);
+                alert.show();
+
+                username.setText("");
+                hotelName.setValue(null);
+                password.setText("");
+                phone.setText("");
+                receptionTable();
+
+            }
+        } catch (Exception e) {
+        }
+    }
+    
+    
+    
+    //   fetch recepton data to admin
+    public ObservableList<Reception> getReceptionList() throws SQLException {
+        ObservableList<Reception> receptionList = FXCollections.observableArrayList();
+        Connection conn = DBconnection.getConnection();
+        String query = "Select * from reception";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Reception receipt;
+            while (rs.next()) {
+                receipt = new Reception(rs.getString("username"), rs.getString("phone"), rs.getString("password"), rs.getString("hotelName"));
+                receptionList.add(receipt);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return receptionList;
+    }
+
+//   assign data to reception table
+    public void receptionTable() throws SQLException {
+        ObservableList<Reception> list = (ObservableList<Reception>) getReceptionList();
+        usernameColReception.setCellValueFactory(new PropertyValueFactory<Reception, String>("name"));
+        hotelColreception.setCellValueFactory(new PropertyValueFactory<Reception, String>("hotel"));
+        passwordColReception.setCellValueFactory(new PropertyValueFactory<Reception, String>("password"));
+        phoneCollRception.setCellValueFactory(new PropertyValueFactory<Reception, String>("phone"));
+        receptionTable.setItems(list);
     }
 
     @FXML

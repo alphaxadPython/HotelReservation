@@ -8,7 +8,7 @@ public class Reception extends HotelReserve{
 
     private String password;
 
-    public Reception(String hotel, String name, String number, String password) {
+    public Reception( String name, String phone, String password, String hotel) {
         this.password = password;
         this.hotel = hotel;
         this.name = name;
