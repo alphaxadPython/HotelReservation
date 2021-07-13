@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -39,8 +40,30 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Pane layoutY="25.0" prefHeight="580.0" prefWidth="132.0" style="-fx-background-color: #0a3d62;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0" />
-      <TabPane layoutX="132.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="132.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <Pane layoutY="25.0" prefHeight="580.0" prefWidth="132.0" style="-fx-background-color: #0a3d62;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <Label layoutX="43.0" layoutY="68.0" text="Reserve" textFill="WHITE">
+               <font>
+                  <Font name="Monotype Corsiva" size="30.0" />
+               </font>
+            </Label>
+            <Button layoutX="5.0" layoutY="173.0" mnemonicParsing="false" onAction="#goRooms" prefHeight="31.0" prefWidth="122.0" style="-fx-background-color: #0a3d62;" text="Rooms" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button layoutX="5.0" layoutY="228.0" mnemonicParsing="false" onAction="#goReception" prefHeight="31.0" prefWidth="122.0" style="-fx-background-color: #0a3d62;" text="Reception" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button layoutX="5.0" layoutY="285.0" mnemonicParsing="false" onAction="#goBookings" prefHeight="31.0" prefWidth="122.0" style="-fx-background-color: #0a3d62;" text="Bookings" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children></Pane>
+      <TabPane fx:id="adminTab" layoutX="132.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="132.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <tabs>
           <Tab text="AddRooms">
             <content>
@@ -136,13 +159,11 @@
                         </ImageView>
                         <TableView fx:id="bokingsTable" layoutX="314.0" layoutY="65.0" prefHeight="427.0" prefWidth="528.0">
                            <columns>
-                              <TableColumn fx:id="usernameBookingCol" prefWidth="75.0" text="username" />
-                              <TableColumn fx:id="bookingPhone" prefWidth="75.0" text="Phone" />
-                              <TableColumn fx:id="hotelBookingCol" prefWidth="75.0" text="Hotel" />
-                              <TableColumn fx:id="roomNoBookingCol" prefWidth="75.0" text="RoomNo" />
-                              <TableColumn fx:id="DateInBookingCol" prefWidth="75.0" text="DateIn" />
-                              <TableColumn fx:id="DateOutCol" prefWidth="75.0" text="DateOut" />
-                              <TableColumn fx:id="receiptCol" prefWidth="75.0" text="receipt" />
+                              <TableColumn fx:id="usernameBookingCol" prefWidth="134.0" text="username" />
+                              <TableColumn fx:id="bookingPhone" prefWidth="100.0" text="Phone" />
+                              <TableColumn fx:id="DateInBookingCol" prefWidth="107.0" text="DateIn" />
+                              <TableColumn fx:id="DateOutCol" prefWidth="91.0" text="DateOut" />
+                              <TableColumn fx:id="receiptCol" prefWidth="93.0" text="receipt" />
                            </columns>
                         </TableView>
                      </children>
@@ -215,5 +236,10 @@
             </Tab>
         </tabs>
       </TabPane>
+      <Label layoutX="8.0" layoutY="55.0" text="Hotel" textFill="WHITE">
+         <font>
+            <Font name="Monotype Corsiva" size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

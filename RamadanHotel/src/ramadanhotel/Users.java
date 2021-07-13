@@ -87,7 +87,6 @@ public class Users extends HotelReserve {
         this.number = number;
         this.hotel = hotel;
         this.roomNo = roomNo;
-
     }
 
     public void BookRoom() {
@@ -113,6 +112,10 @@ public class Users extends HotelReserve {
             System.out.println("Cannot connect the database!" + e.getMessage());
         }
         System.out.println("Booking done");
+    }
+    
+    public void Hello(String name){
+        System.out.println(name+"fgjfjgdfgd");
     }
 
 }

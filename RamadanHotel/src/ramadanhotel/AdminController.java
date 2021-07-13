@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -83,6 +84,8 @@ public class AdminController implements Initializable {
     private TableColumn<Reception, String> passwordColReception;
     @FXML
     private TableColumn<Reception, String> phoneCollRception;
+    @FXML
+    private TabPane adminTab;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -107,6 +110,7 @@ public class AdminController implements Initializable {
         try {
             roomsTable();
             receptionTable();
+            bookingTable();
         } catch (Exception e) {
         }
     }
@@ -129,6 +133,7 @@ public class AdminController implements Initializable {
                 String price = Price.getText();
                 String cartegory = cartegoryCombo.getValue();
 
+//                object creation
                 Rooms newRoom = new Rooms(room, rmNo, beds, hotel, price, cartegory);
                 newRoom.RegisterRoom();
 
@@ -297,6 +302,7 @@ public class AdminController implements Initializable {
                 String pwd = password.getText();
                 String phon = phone.getText();
 
+//                object
                 Reception newReception = new Reception(user, phon, pwd, hotel);
                 newReception.registerReception();
 
@@ -349,7 +355,6 @@ public class AdminController implements Initializable {
         receptionTable.setItems(list);
     }
 
-  
 //    capture reception data
     @FXML
     private void captureReception(MouseEvent event) {
@@ -403,11 +408,10 @@ public class AdminController implements Initializable {
         System.out.println("updated reception");
     }
 
-    
 //    delete reception
-      @FXML
+    @FXML
     private void deleteReception(ActionEvent event) {
-          try (Connection conn = DBconnection.getConnection()) {
+        try (Connection conn = DBconnection.getConnection()) {
 
             // deleting reception
             String query = "DELETE FROM reception WHERE username=?";
@@ -436,6 +440,56 @@ public class AdminController implements Initializable {
             System.out.println("Cannot connect the database!" + e.getMessage());
         }
         System.out.println("updated reception");
+    }
+
+    @FXML
+    private void goRooms(ActionEvent event) {
+        adminTab.getSelectionModel().select(0);
+    }
+
+    @FXML
+    private void goReception(ActionEvent event) {
+        adminTab.getSelectionModel().select(2);
+
+    }
+
+    @FXML
+    private void goBookings(ActionEvent event) {
+        adminTab.getSelectionModel().select(1);
+
+    }
+
+    
+        //   fetch recepton data to admin
+    public ObservableList<Reception> getBookingList() throws SQLException {
+        ObservableList<Reception> bookingList = FXCollections.observableArrayList();
+        Connection conn = DBconnection.getConnection();
+        String query = "Select * from bookings";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Reception receipt;
+            while (rs.next()) {
+                receipt = new Reception(rs.getString("username"), rs.getString("phone"), rs.getString("dateIn"), rs.getString("dateOut"));
+                bookingList.add(receipt);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return bookingList;
+    }
+
+//   assign data to reception table
+    public void bookingTable() throws SQLException {
+        ObservableList<Reception> list = (ObservableList<Reception>) getBookingList();
+        usernameColReception.setCellValueFactory(new PropertyValueFactory<Reception, String>("name"));
+        hotelColreception.setCellValueFactory(new PropertyValueFactory<Reception, String>("hotel"));
+        passwordColReception.setCellValueFactory(new PropertyValueFactory<Reception, String>("password"));
+        phoneCollRception.setCellValueFactory(new PropertyValueFactory<Reception, String>("number"));
+        receptionTable.setItems(list);
     }
 
 }

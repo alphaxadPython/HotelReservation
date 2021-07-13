@@ -30,6 +30,8 @@ public class HotelReserve {
         this.number = number;
     }
 
-    
+    public void Hello(String name){
+        System.out.println(name);
+    }
     
 }

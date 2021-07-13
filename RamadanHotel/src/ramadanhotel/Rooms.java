@@ -35,7 +35,7 @@ public class Rooms  extends HotelReserve{
         this.beds = beds;
     }
 
-//    room, rmNo, beds, hotel, price, cartegory
+//    rooms constructor
     public Rooms(String name, String number, String beds, String hotel, String price, String cartegory) {
         this.price = price;
         this.cartegory = cartegory;
@@ -45,6 +45,7 @@ public class Rooms  extends HotelReserve{
         this.number = number;
     }
     
+//    register room functio
     public void RegisterRoom(){
          try (Connection conn = DBconnection.getConnection()) {
 

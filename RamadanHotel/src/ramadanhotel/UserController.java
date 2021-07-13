@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -71,6 +72,8 @@ public class UserController implements Initializable {
     private DatePicker DateOut;
     @FXML
     private TextField ReceiptBook;
+    @FXML
+    private Button login;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -81,31 +84,24 @@ public class UserController implements Initializable {
         } catch (Exception e) {
         }
     }
-
     @FXML
     private void goParadise(ActionEvent event) {
         mainTab.getSelectionModel().select(1);
-
     }
-
     @FXML
     private void goJaromax(ActionEvent event) {
         mainTab.getSelectionModel().select(2);
-
     }
-
     @FXML
     private void goHayat(ActionEvent event) {
         mainTab.getSelectionModel().select(3);
 
     }
-
     @FXML
     private void goBook(ActionEvent event) {
         mainTab.getSelectionModel().select(4);
 
     }
-
     //   fetch paradise rooms
     public ObservableList<Rooms> getRoomList() throws SQLException {
         ObservableList<Rooms> roomList = FXCollections.observableArrayList();
@@ -127,7 +123,6 @@ public class UserController implements Initializable {
 
         return roomList;
     }
-
 //   assign data to table showing paradise details
     public void paradiseTable() throws SQLException {
         ObservableList<Rooms> list = (ObservableList<Rooms>) getRoomList();
@@ -136,10 +131,8 @@ public class UserController implements Initializable {
         bedsColParadise.setCellValueFactory(new PropertyValueFactory<Rooms, String>("beds"));
         cartegoryColParadise.setCellValueFactory(new PropertyValueFactory<Rooms, String>("cartegory"));
         costParadiseCol.setCellValueFactory(new PropertyValueFactory<Rooms, String>("price"));
-
         ParadiseTable.setItems(list);
     }
-
     //   fetch paradise rooms
     public ObservableList<Rooms> getHayatList() throws SQLException {
         ObservableList<Rooms> roomList = FXCollections.observableArrayList();
@@ -170,7 +163,6 @@ public class UserController implements Initializable {
         bedsHayatss.setCellValueFactory(new PropertyValueFactory<Rooms, String>("beds"));
         roomcartegoryHayat.setCellValueFactory(new PropertyValueFactory<Rooms, String>("cartegory"));
         costHayat.setCellValueFactory(new PropertyValueFactory<Rooms, String>("price"));
-
         hayatTable.setItems(list);
     }
 
@@ -195,7 +187,6 @@ public class UserController implements Initializable {
 
         return roomList;
     }
-
 //  assign data to jaromax table
     public void jaroMaxTable() throws SQLException {
         ObservableList<Rooms> list = (ObservableList<Rooms>) getJaromax();
@@ -208,38 +199,50 @@ public class UserController implements Initializable {
         JaromaxTable.setItems(list);
     }
 
-   
-
 //    booking method here
     @FXML
     private void makeBoking(ActionEvent event) {
         try {
-            if (usernameBook.getText().isEmpty() || phoneBook.getText().isEmpty() || ReceiptBook.getText().isEmpty() || dateIn.getValue().isEqual(null) || DateOut.getValue().isEqual(null)) {
+            if (usernameBook.getText().isEmpty() || phoneBook.getText().isEmpty() || ReceiptBook.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Please Fill All fields!!");
                 alert.setTitle("Empty Fields");
                 alert.setHeaderText(null);
                 alert.showAndWait();
             } else {
-
                 String user = usernameBook.getText();
                 String phn = phoneBook.getText();
                 String rcpt = ReceiptBook.getText();
                 java.sql.Date datIn = java.sql.Date.valueOf(dateIn.getValue().toString());
                 java.sql.Date datOut = java.sql.Date.valueOf(DateOut.getValue().toString());
 
+//                object
                 Users newBooking = new Users(user, phn, datIn, datOut, rcpt);
                 newBooking.BookRoom();
 
+                usernameBook.setText("");
+                phoneBook.setText("");
+                ReceiptBook.setText("");
+                dateIn.setValue(null);
+                DateOut.setValue(null);
+                
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Booking made successFully!!");
                 alert.setTitle("Booked");
                 alert.setHeaderText(null);
                 alert.show();
+                
+                mainTab.getSelectionModel().select(0);
 
             }
         } catch (Exception e) {
         }
+    }
+
+//    switch to login here
+    @FXML
+    private void logiForm(ActionEvent event) {
+        
     }
 
 }
