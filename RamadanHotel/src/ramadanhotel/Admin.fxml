@@ -62,6 +62,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button fx:id="logout" layoutX="5.0" layoutY="527.0" mnemonicParsing="false" onAction="#goHome" prefHeight="31.0" prefWidth="122.0" style="-fx-background-color: #0a3d62;" text="Logout" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children></Pane>
       <TabPane fx:id="adminTab" layoutX="132.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="132.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <tabs>
@@ -241,5 +246,14 @@
             <Font name="Monotype Corsiva" size="30.0" />
          </font>
       </Label>
+      <Pane layoutX="132.0" layoutY="24.0" prefHeight="31.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="132.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+         <children>
+            <Label layoutX="188.0" layoutY="-5.0" text="Hotel reservation System" textFill="#0a3d62">
+               <font>
+                  <Font name="Monotype Corsiva" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

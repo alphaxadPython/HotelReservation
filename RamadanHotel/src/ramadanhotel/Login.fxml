@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -9,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ramadanhotel.LoginController">
    <children>
       <Label layoutX="359.0" layoutY="13.0" text="Login Please!" textFill="#0a3d62">
          <font>
@@ -29,20 +29,23 @@
          </font>
       </Label>
       <PasswordField fx:id="password" layoutX="344.0" layoutY="200.0" prefHeight="32.0" prefWidth="233.0" promptText="password" />
-      <Button layoutX="344.0" layoutY="268.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="233.0" style="-fx-background-color: #0a3d62;" text="Login" textFill="WHITE">
+      <Button fx:id="loginBtn" layoutX="344.0" layoutY="268.0" mnemonicParsing="false" onAction="#loginNow" prefHeight="32.0" prefWidth="233.0" style="-fx-background-color: #0a3d62;" text="Login" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Button>
-      <Label layoutX="348.0" layoutY="332.0" text="Forgot Password ?" textFill="TEAL">
+      <Label layoutX="348.0" layoutY="332.0" text="Have No Account?" textFill="TEAL">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="494.0" layoutY="332.0" text="Click Here!!" textFill="#d76161">
+      <Label fx:id="linkBack" layoutX="494.0" layoutY="332.0" onMouseClicked="#backHome" text="Back Home!" textFill="#d76161">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Label>
       <ImageView fitHeight="400.0" fitWidth="309.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>

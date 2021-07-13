@@ -11,7 +11,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -21,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class UserController implements Initializable {
 
@@ -242,7 +245,13 @@ public class UserController implements Initializable {
 //    switch to login here
     @FXML
     private void logiForm(ActionEvent event) {
-        
+        try {
+            FXMLLoader form = new FXMLLoader(getClass().getResource("Login.fxml"));
+                Stage stage = (Stage) login.getScene().getWindow();
+                Scene scene = new Scene(form.load());
+                stage.setScene(scene);
+        } catch (Exception e) {
+        }
     }
 
 }

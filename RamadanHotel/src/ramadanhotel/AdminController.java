@@ -2,6 +2,7 @@ package ramadanhotel;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +12,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TabPane;
@@ -21,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class AdminController implements Initializable {
 
@@ -51,21 +56,18 @@ public class AdminController implements Initializable {
     @FXML
     private TableColumn<Rooms, String> PriceCol;
     @FXML
-    private TableView<?> bokingsTable;
+    private TableView<Users> bokingsTable;
     @FXML
-    private TableColumn<?, ?> usernameBookingCol;
+    private TableColumn<Users, String> usernameBookingCol;
     @FXML
-    private TableColumn<?, ?> bookingPhone;
+    private TableColumn<Users, String> bookingPhone;
+
     @FXML
-    private TableColumn<?, ?> hotelBookingCol;
+    private TableColumn<Users, String> DateInBookingCol;
     @FXML
-    private TableColumn<?, ?> roomNoBookingCol;
+    private TableColumn<Users, String> DateOutCol;
     @FXML
-    private TableColumn<?, ?> DateInBookingCol;
-    @FXML
-    private TableColumn<?, ?> DateOutCol;
-    @FXML
-    private TableColumn<?, ?> receiptCol;
+    private TableColumn<Users, String> receiptCol;
     @FXML
     private TextField username;
     @FXML
@@ -86,6 +88,8 @@ public class AdminController implements Initializable {
     private TableColumn<Reception, String> phoneCollRception;
     @FXML
     private TabPane adminTab;
+    @FXML
+    private Button logout;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -459,10 +463,9 @@ public class AdminController implements Initializable {
 
     }
 
-    
-        //   fetch recepton data to admin
-    public ObservableList<Reception> getBookingList() throws SQLException {
-        ObservableList<Reception> bookingList = FXCollections.observableArrayList();
+    //  fetch booking data
+    public ObservableList<Users> getBookingList() throws SQLException {
+        ObservableList<Users> bookingList = FXCollections.observableArrayList();
         Connection conn = DBconnection.getConnection();
         String query = "Select * from bookings";
         Statement st;
@@ -470,26 +473,38 @@ public class AdminController implements Initializable {
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
-            Reception receipt;
+            Users book;
             while (rs.next()) {
-                receipt = new Reception(rs.getString("username"), rs.getString("phone"), rs.getString("dateIn"), rs.getString("dateOut"));
-                bookingList.add(receipt);
+                book = new Users(rs.getString("username"), rs.getString("phone"), rs.getDate("dateIn"), rs.getDate("dateOut"), rs.getString("receipt"));
+                bookingList.add(book);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
         }
 
         return bookingList;
     }
-
 //   assign data to reception table
+
     public void bookingTable() throws SQLException {
-        ObservableList<Reception> list = (ObservableList<Reception>) getBookingList();
-        usernameColReception.setCellValueFactory(new PropertyValueFactory<Reception, String>("name"));
-        hotelColreception.setCellValueFactory(new PropertyValueFactory<Reception, String>("hotel"));
-        passwordColReception.setCellValueFactory(new PropertyValueFactory<Reception, String>("password"));
-        phoneCollRception.setCellValueFactory(new PropertyValueFactory<Reception, String>("number"));
-        receptionTable.setItems(list);
+        ObservableList<Users> list = (ObservableList<Users>) getBookingList();
+        usernameBookingCol.setCellValueFactory(new PropertyValueFactory<Users, String>("name"));
+        bookingPhone.setCellValueFactory(new PropertyValueFactory<Users, String>("number"));
+        DateInBookingCol.setCellValueFactory(new PropertyValueFactory<Users, String>("dateIn"));
+        DateOutCol.setCellValueFactory(new PropertyValueFactory<Users, String>("dateOut"));
+        receiptCol.setCellValueFactory(new PropertyValueFactory<Users, String>("receipt"));
+
+        bokingsTable.setItems(list);
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) {
+        try {
+            FXMLLoader form = new FXMLLoader(getClass().getResource("User.fxml"));
+            Stage stage = (Stage) logout.getScene().getWindow();
+            Scene scene = new Scene(form.load());
+            stage.setScene(scene);
+        } catch (Exception e) {
+        }
     }
 
 }
