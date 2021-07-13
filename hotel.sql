@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2021 at 09:44 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.1.12
+-- Generation Time: Jul 13, 2021 at 12:23 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -34,8 +33,8 @@ CREATE TABLE `bookings` (
   `phone` varchar(100) NOT NULL,
   `dateIn` varchar(100) NOT NULL,
   `dateOut` varchar(100) NOT NULL,
-  `roomNo` varchar(10) NOT NULL,
-  `hotelName` varchar(100) NOT NULL,
+  `roomNo` varchar(10) DEFAULT NULL,
+  `hotelName` varchar(100) DEFAULT NULL,
   `receipt` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -47,11 +46,18 @@ CREATE TABLE `bookings` (
 
 CREATE TABLE `reception` (
   `id` int(11) NOT NULL,
-  `username` int(11) NOT NULL,
-  `phone` int(11) NOT NULL,
-  `password` int(11) NOT NULL,
-  `hotelName` int(11) NOT NULL
+  `username` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `hotelName` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reception`
+--
+
+INSERT INTO `reception` (`id`, `username`, `phone`, `password`, `hotelName`) VALUES
+(1, 'alpha jozee', '987876543211', '12345', 'Jaromax Hotel');
 
 -- --------------------------------------------------------
 
@@ -68,6 +74,13 @@ CREATE TABLE `rooms` (
   `cost` varchar(100) NOT NULL,
   `cartegory` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rooms`
+--
+
+INSERT INTO `rooms` (`id`, `roomName`, `roomNo`, `beds`, `hoteName`, `cost`, `cartegory`) VALUES
+(4, 'MonaRoom', '6', '2', 'Hayat Hill hotel', '45000', 'Delux Double Room');
 
 --
 -- Indexes for dumped tables
@@ -105,13 +118,13 @@ ALTER TABLE `bookings`
 -- AUTO_INCREMENT for table `reception`
 --
 ALTER TABLE `reception`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

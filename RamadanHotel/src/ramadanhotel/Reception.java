@@ -23,6 +23,7 @@ public class Reception extends HotelReserve{
         this.password = password;
     }
     
+//    register reception
     public void registerReception(){
          try (Connection conn = DBconnection.getConnection()) {
 

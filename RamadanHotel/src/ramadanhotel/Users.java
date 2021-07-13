@@ -76,6 +76,18 @@ public class Users extends HotelReserve {
         this.hotel = hotel;
         this.name = name;
         this.number = number;
+
+    }
+
+    public Users(String name, String number, Date dateIn, Date dateOut,String receipt) {
+        this.dateIn = dateIn;
+        this.dateOut = dateOut;
+        this.receipt = receipt;
+        this.name = name;
+        this.number = number;
+        this.hotel = hotel;
+        this.roomNo = roomNo;
+
     }
 
     public void BookRoom() {

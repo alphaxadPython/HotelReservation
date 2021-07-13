@@ -96,8 +96,7 @@ public class AdminController implements Initializable {
         hotelName.setItems(hotel);
 
         //        combo box for rooms
-                ObservableList
-        <String > rooms = FXCollections.observableArrayList(
+        ObservableList<String> rooms = FXCollections.observableArrayList(
                 "Standard Double Room",
                 "Delux Double Room",
                 "Executive Room",
@@ -317,9 +316,7 @@ public class AdminController implements Initializable {
         } catch (Exception e) {
         }
     }
-    
-    
-    
+
     //   fetch recepton data to admin
     public ObservableList<Reception> getReceptionList() throws SQLException {
         ObservableList<Reception> receptionList = FXCollections.observableArrayList();
@@ -348,16 +345,97 @@ public class AdminController implements Initializable {
         usernameColReception.setCellValueFactory(new PropertyValueFactory<Reception, String>("name"));
         hotelColreception.setCellValueFactory(new PropertyValueFactory<Reception, String>("hotel"));
         passwordColReception.setCellValueFactory(new PropertyValueFactory<Reception, String>("password"));
-        phoneCollRception.setCellValueFactory(new PropertyValueFactory<Reception, String>("phone"));
+        phoneCollRception.setCellValueFactory(new PropertyValueFactory<Reception, String>("number"));
         receptionTable.setItems(list);
     }
 
+  
+//    capture reception data
     @FXML
-    private void updateReceprtion(ActionEvent event) {
+    private void captureReception(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            username.setText(receptionTable.getSelectionModel().getSelectedItem().name);
+            password.setText(receptionTable.getSelectionModel().getSelectedItem().getPassword());
+            hotelName.setValue(receptionTable.getSelectionModel().getSelectedItem().hotel);
+            phone.setText(receptionTable.getSelectionModel().getSelectedItem().getNumber());
+
+            //            setting the name to capture updates and delete
+            Name = receptionTable.getSelectionModel().getSelectedItem().name;
+
+        }
     }
 
+//    update reception
     @FXML
+    private void updateReceprtion(ActionEvent event) {
+        try (Connection conn = DBconnection.getConnection()) {
+
+            // updating query
+            String query = "UPDATE reception set username=?, phone=?, password=?, hotelName=? WHERE username=?";
+
+            // update statement
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1, username.getText());
+            preparedStmt.setString(2, phone.getText());
+            preparedStmt.setString(3, password.getText());
+            preparedStmt.setString(4, hotelName.getValue());
+            preparedStmt.setString(5, Name);
+
+            // Execute the preparedstatement
+            preparedStmt.execute();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Updated Successfully!!!!");
+            alert.setTitle("Updates");
+            alert.setHeaderText(null);
+            alert.show();
+
+            username.setText("");
+            hotelName.setValue(null);
+            password.setText("");
+            phone.setText("");
+            receptionTable();
+
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Cannot connect the database!" + e.getMessage());
+        }
+        System.out.println("updated reception");
+    }
+
+    
+//    delete reception
+      @FXML
     private void deleteReception(ActionEvent event) {
+          try (Connection conn = DBconnection.getConnection()) {
+
+            // deleting reception
+            String query = "DELETE FROM reception WHERE username=?";
+
+            // statements here
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1, Name);
+
+            // Execute the preparedstatement
+            preparedStmt.execute();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Deleted Successfully!!!!");
+            alert.setTitle("Deleted");
+            alert.setHeaderText(null);
+            alert.show();
+
+            username.setText("");
+            hotelName.setValue(null);
+            password.setText("");
+            phone.setText("");
+            receptionTable();
+
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Cannot connect the database!" + e.getMessage());
+        }
+        System.out.println("updated reception");
     }
 
 }

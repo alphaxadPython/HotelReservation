@@ -191,7 +191,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <TableView fx:id="receptionTable" layoutX="382.0" layoutY="64.0" prefHeight="427.0" prefWidth="462.0">
+                        <TableView fx:id="receptionTable" layoutX="382.0" layoutY="64.0" onMouseClicked="#captureReception" prefHeight="427.0" prefWidth="462.0">
                            <columns>
                               <TableColumn fx:id="usernameColReception" prefWidth="148.0" text="Username" />
                               <TableColumn fx:id="hotelColreception" prefWidth="105.0" text="Hotel" />
