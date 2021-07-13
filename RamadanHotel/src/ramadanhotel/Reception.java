@@ -8,7 +8,7 @@ public class Reception extends HotelReserve{
 
     private String password;
 
-    public Reception( String name, String phone, String password, String hotel) {
+    public Reception( String name, String number, String password, String hotel) {
         this.password = password;
         this.hotel = hotel;
         this.name = name;
@@ -27,7 +27,7 @@ public class Reception extends HotelReserve{
          try (Connection conn = DBconnection.getConnection()) {
 
             // insert reception data
-            String query = "INSERT INTO rooms(username, phone, password, hotelName) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO reception (username, phone, password, hotelName) VALUES (?, ?, ?, ?)";
             // prepared statement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, name);

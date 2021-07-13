@@ -298,8 +298,8 @@ public class AdminController implements Initializable {
                 String pwd = password.getText();
                 String phon = phone.getText();
 
-                Reception newRoom = new Reception(user, phon, pwd, hotel);
-                newRoom.registerReception();
+                Reception newReception = new Reception(user, phon, pwd, hotel);
+                newReception.registerReception();
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Reception registered successFully!!");
